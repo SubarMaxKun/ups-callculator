@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="420.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="com.shevliakov.upsbatterycalculator.MainController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="199.9999755859375" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="410.40003337860105" minHeight="10.0" prefHeight="339.20001831054685" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label alignment="CENTER" text="Sign Up">
+         <font>
+            <Font name="Roboto Light" size="26.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+      </Label>
+      <VBox alignment="CENTER" GridPane.rowIndex="1">
+         <children>
+            <MFXTextField floatMode="ABOVE" floatingText="Username" prefWidth="200.0" textLimit="16">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </MFXTextField>
+            <MFXPasswordField floatMode="ABOVE" floatingText="Password" prefWidth="200.0" textLimit="16">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </MFXPasswordField>
+            <HBox alignment="TOP_CENTER">
+               <children>
+                  <MFXButton fx:id="ReturnButton" buttonType="RAISED" depthLevel="LEVEL1" onAction="#onReturnButtonClicked" prefHeight="30.0" prefWidth="100.0" text="Return">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton fx:id="AuthorizeButton" buttonType="RAISED" depthLevel="LEVEL1" onAction="#proceedAuthorization" prefHeight="30.0" prefWidth="100.0" text="Sign Up">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</GridPane>
