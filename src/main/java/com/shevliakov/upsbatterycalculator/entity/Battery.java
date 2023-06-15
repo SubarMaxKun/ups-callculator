@@ -1,4 +1,4 @@
-package com.shevliakov.upsbatterycalculator.entities;
+package com.shevliakov.upsbatterycalculator.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,9 +7,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -19,6 +21,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Builder
+@Setter
+@Getter
 public class Battery {
 
   @Id
