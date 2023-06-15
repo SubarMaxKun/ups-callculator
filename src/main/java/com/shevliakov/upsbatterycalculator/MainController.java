@@ -1,5 +1,7 @@
 package com.shevliakov.upsbatterycalculator;
 
+import com.shevliakov.upsbatterycalculator.dao.impl.UserDaoImpl;
+import com.shevliakov.upsbatterycalculator.entity.User;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -45,9 +47,9 @@ public class MainController {
   protected void proceedAuthorization() {
     String procedure = AuthorizeButton.getText();
     if (procedure.equals("Sign In")) {
-      System.out.println("Sign In");
+      // TODO:
     } else if (procedure.equals("Sign Up")) {
-      System.out.println("Sign Up");
+      // TODO:
     }
   }
 }
