@@ -1,8 +1,9 @@
 package com.shevliakov.upsbatterycalculator;
 
-import com.shevliakov.upsbatterycalculator.dao.impl.UserDaoImpl;
-import com.shevliakov.upsbatterycalculator.entity.User;
+import com.shevliakov.upsbatterycalculator.logic.authorization.SignIn;
+import com.shevliakov.upsbatterycalculator.logic.authorization.SignUp;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,8 @@ public class MainController {
   public MFXButton SignUpButton;
   public MFXButton ReturnButton;
   public MFXButton AuthorizeButton;
+  public MFXTextField UsernameTextField;
+  public MFXTextField PasswordPasswordField;
 
   @FXML
   protected void onSignInButtonClicked() throws IOException {
@@ -48,8 +51,20 @@ public class MainController {
     String procedure = AuthorizeButton.getText();
     if (procedure.equals("Sign In")) {
       // TODO:
+      SignIn signIn = new SignIn();
+      if (signIn.signIn(UsernameTextField.getText(), PasswordPasswordField.getText())){
+        System.out.println("Success");
+      } else {
+        System.out.println("Failure");
+      }
     } else if (procedure.equals("Sign Up")) {
       // TODO:
+      SignUp signUp = new SignUp();
+      if (signUp.signUp(UsernameTextField.getText(), PasswordPasswordField.getText())){
+        System.out.println("Success");
+      } else {
+        System.out.println("Failure");
+      }
     }
   }
 }
