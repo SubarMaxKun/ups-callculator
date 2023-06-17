@@ -47,24 +47,31 @@ public class MainController {
   }
 
   @FXML
-  protected void proceedAuthorization() {
+  protected void proceedAuthorization() throws IOException {
     String procedure = AuthorizeButton.getText();
     if (procedure.equals("Sign In")) {
       // TODO:
       SignIn signIn = new SignIn();
-      if (signIn.signIn(UsernameTextField.getText(), PasswordPasswordField.getText())){
-        System.out.println("Success");
+      if (signIn.signIn(UsernameTextField.getText(), PasswordPasswordField.getText())) {
+        openCalculatorStage();
       } else {
         System.out.println("Failure");
       }
     } else if (procedure.equals("Sign Up")) {
       // TODO:
       SignUp signUp = new SignUp();
-      if (signUp.signUp(UsernameTextField.getText(), PasswordPasswordField.getText())){
-        System.out.println("Success");
+      if (signUp.signUp(UsernameTextField.getText(), PasswordPasswordField.getText())) {
+        openCalculatorStage();
       } else {
         System.out.println("Failure");
       }
     }
+  }
+
+  private void openCalculatorStage() throws IOException {
+    Stage stage = (Stage) AuthorizeButton.getScene().getWindow();
+    stage.close();
+    CalculatorStage calculatorStage = new CalculatorStage();
+    calculatorStage.open();
   }
 }
