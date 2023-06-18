@@ -5,9 +5,12 @@ import com.shevliakov.upsbatterycalculator.logic.authorization.SignUp;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class MainController {
@@ -18,53 +21,61 @@ public class MainController {
   public MFXButton AuthorizeButton;
   public MFXTextField UsernameTextField;
   public MFXTextField PasswordPasswordField;
+  public Label ErrorLabel;
 
   @FXML
-  protected void onSignInButtonClicked() throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/signIn-view.fxml"));
+  protected void onNavigationButtonClicked(ActionEvent actionEvent) throws IOException {
+    String fxmlFileName = "";
+    if (actionEvent.getSource() == SignInButton) {
+      fxmlFileName = "signIn-view.fxml";
+    } else if (actionEvent.getSource() == SignUpButton) {
+      fxmlFileName = "signUp-view.fxml";
+    } else if (actionEvent.getSource() == ReturnButton) {
+      fxmlFileName = "main-view.fxml";
+    }
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/" + fxmlFileName));
     Scene scene = new Scene(fxmlLoader.load());
-    Stage stage = (Stage) SignInButton.getScene().getWindow();
+    Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     stage.setScene(scene);
     stage.show();
   }
 
   @FXML
-  protected void onSignUpButtonClicked() throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/signUp-view.fxml"));
-    Scene scene = new Scene(fxmlLoader.load());
-    Stage stage = (Stage) SignUpButton.getScene().getWindow();
-    stage.setScene(scene);
-    stage.show();
-  }
-
-  @FXML
-  protected void onReturnButtonClicked() throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/main-view.fxml"));
-    Scene scene = new Scene(fxmlLoader.load());
-    Stage stage = (Stage) ReturnButton.getScene().getWindow();
-    stage.setScene(scene);
-    stage.show();
-  }
-
-  @FXML
-  protected void proceedAuthorization() throws IOException {
+  protected void proceedAuthorization(ActionEvent actionEvent) throws IOException {
     String procedure = AuthorizeButton.getText();
-    if (procedure.equals("Sign In")) {
-      // TODO:
-      SignIn signIn = new SignIn();
+    switch (procedure) {
+      case "Sign In" -> proceedSignIn();
+      case "Sign Up" -> proceedSignUp();
+    }
+  }
+
+  private void proceedSignIn() {
+    SignIn signIn = new SignIn();
+    try {
       if (signIn.signIn(UsernameTextField.getText(), PasswordPasswordField.getText())) {
         openCalculatorStage();
       } else {
-        System.out.println("Failure");
+        ErrorLabel.setText("Wrong username or password");
+        ErrorLabel.setVisible(true);
       }
-    } else if (procedure.equals("Sign Up")) {
-      // TODO:
-      SignUp signUp = new SignUp();
+    } catch (Exception e) {
+      ErrorLabel.setText("Connection with database failed");
+      ErrorLabel.setVisible(true);
+    }
+  }
+
+  private void proceedSignUp() {
+    SignUp signUp = new SignUp();
+    try {
       if (signUp.signUp(UsernameTextField.getText(), PasswordPasswordField.getText())) {
         openCalculatorStage();
       } else {
-        System.out.println("Failure");
+        ErrorLabel.setText("You have problem with username or password");
+        ErrorLabel.setVisible(true);
       }
+    } catch (Exception e) {
+      ErrorLabel.setText("Connection with database failed");
+      ErrorLabel.setVisible(true);
     }
   }
 
