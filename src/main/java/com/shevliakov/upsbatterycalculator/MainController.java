@@ -1,5 +1,7 @@
 package com.shevliakov.upsbatterycalculator;
 
+import com.shevliakov.upsbatterycalculator.entity.User;
+import com.shevliakov.upsbatterycalculator.logic.Hash;
 import com.shevliakov.upsbatterycalculator.logic.authorization.SignIn;
 import com.shevliakov.upsbatterycalculator.logic.authorization.SignUp;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -22,6 +24,10 @@ public class MainController {
   public MFXTextField UsernameTextField;
   public MFXTextField PasswordPasswordField;
   public Label ErrorLabel;
+  public MFXButton GuestButton;
+  User user = new User();
+  private String username;
+  private String password;
 
   @FXML
   protected void onNavigationButtonClicked(ActionEvent actionEvent) throws IOException {
@@ -30,6 +36,9 @@ public class MainController {
       fxmlFileName = "signIn-view.fxml";
     } else if (actionEvent.getSource() == SignUpButton) {
       fxmlFileName = "signUp-view.fxml";
+    } else if (actionEvent.getSource() == GuestButton) {
+      openCalculatorStage();
+      return;
     } else if (actionEvent.getSource() == ReturnButton) {
       fxmlFileName = "main-view.fxml";
     }
@@ -41,7 +50,9 @@ public class MainController {
   }
 
   @FXML
-  protected void proceedAuthorization(ActionEvent actionEvent) throws IOException {
+  protected void proceedAuthorization(ActionEvent actionEvent) {
+    username = UsernameTextField.getText();
+    password = PasswordPasswordField.getText();
     String procedure = AuthorizeButton.getText();
     switch (procedure) {
       case "Sign In" -> proceedSignIn();
@@ -52,13 +63,16 @@ public class MainController {
   private void proceedSignIn() {
     SignIn signIn = new SignIn();
     try {
-      if (signIn.signIn(UsernameTextField.getText(), PasswordPasswordField.getText())) {
+      if (signIn.signIn(username, password)) {
+        setUser();
         openCalculatorStage();
+        sendUser();
       } else {
         ErrorLabel.setText("Wrong username or password");
         ErrorLabel.setVisible(true);
       }
     } catch (Exception e) {
+      System.out.println(e.getMessage());
       ErrorLabel.setText("Connection with database failed");
       ErrorLabel.setVisible(true);
     }
@@ -67,8 +81,10 @@ public class MainController {
   private void proceedSignUp() {
     SignUp signUp = new SignUp();
     try {
-      if (signUp.signUp(UsernameTextField.getText(), PasswordPasswordField.getText())) {
+      if (signUp.signUp(username, password)) {
+        setUser();
         openCalculatorStage();
+        sendUser();
       } else {
         ErrorLabel.setText("You have problem with username or password");
         ErrorLabel.setVisible(true);
@@ -79,8 +95,23 @@ public class MainController {
     }
   }
 
+  private void setUser() {
+    user.setUsername(username);
+    user.setPassword(Hash.getHash(password));
+  }
+
+  private void sendUser() {
+    CalculatorController calculatorController = new CalculatorController();
+    calculatorController.setUser(user);
+  }
+
   private void openCalculatorStage() throws IOException {
-    Stage stage = (Stage) AuthorizeButton.getScene().getWindow();
+    Stage stage;
+    if (AuthorizeButton == null) {
+      stage = (Stage) GuestButton.getScene().getWindow();
+    } else {
+      stage = (Stage) AuthorizeButton.getScene().getWindow();
+    }
     stage.close();
     CalculatorStage calculatorStage = new CalculatorStage();
     calculatorStage.open();

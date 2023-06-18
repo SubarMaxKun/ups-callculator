@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="com.shevliakov.upsbatterycalculator.CalculatorController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shevliakov.upsbatterycalculator.CalculatorController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.39996337890625" minWidth="10.0" prefWidth="255.20001220703125" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="488.0" minWidth="10.0" prefWidth="344.79998779296875" />
@@ -50,6 +50,14 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </MFXButton>
+            <Label fx:id="ErrorLabel" text="Entered data is not valid" textAlignment="CENTER" textFill="RED" visible="false">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
          </children>
       </VBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -59,7 +67,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </MFXButton>
-            <MFXButton fx:id="ProfileButton1" buttonType="RAISED" depthLevel="LEVEL1" onAction="#onProfileButtonClicked" prefWidth="100.0" text="Profile">
+            <MFXButton fx:id="ProfileButton" buttonType="RAISED" depthLevel="LEVEL1" onAction="#onProfileButtonClicked" prefWidth="100.0" text="Profile">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
@@ -91,7 +99,7 @@
                   </Label>
                </children>
             </HBox>
-            <MFXTableView fx:id="BatteriesTableView" footerVisible="false" />
+            <MFXTableView fx:id="BatteriesTableView" footerVisible="false" visible="false" />
          </children>
       </VBox>
    </children>
