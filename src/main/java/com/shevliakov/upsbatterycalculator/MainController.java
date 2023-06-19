@@ -37,7 +37,7 @@ public class MainController {
     } else if (actionEvent.getSource() == SignUpButton) {
       fxmlFileName = "signUp-view.fxml";
     } else if (actionEvent.getSource() == GuestButton) {
-      openCalculatorStage();
+      openCalculatorStage("guest", Hash.getHash("guest"));
       return;
     } else if (actionEvent.getSource() == ReturnButton) {
       fxmlFileName = "main-view.fxml";
@@ -64,9 +64,7 @@ public class MainController {
     SignIn signIn = new SignIn();
     try {
       if (signIn.signIn(username, password)) {
-        setUser();
-        openCalculatorStage();
-        sendUser();
+        openCalculatorStage(username, Hash.getHash(password));
       } else {
         ErrorLabel.setText("Wrong username or password");
         ErrorLabel.setVisible(true);
@@ -82,9 +80,7 @@ public class MainController {
     SignUp signUp = new SignUp();
     try {
       if (signUp.signUp(username, password)) {
-        setUser();
-        openCalculatorStage();
-        sendUser();
+        openCalculatorStage(username, Hash.getHash(password));
       } else {
         ErrorLabel.setText("You have problem with username or password");
         ErrorLabel.setVisible(true);
@@ -95,25 +91,20 @@ public class MainController {
     }
   }
 
-  private void setUser() {
-    user.setUsername(username);
-    user.setPassword(Hash.getHash(password));
-  }
-
-  private void sendUser() {
-    CalculatorController calculatorController = new CalculatorController();
-    calculatorController.setUser(user);
-  }
-
-  private void openCalculatorStage() throws IOException {
+  private void openCalculatorStage(String username, String password) throws IOException {
     Stage stage;
     if (AuthorizeButton == null) {
       stage = (Stage) GuestButton.getScene().getWindow();
     } else {
       stage = (Stage) AuthorizeButton.getScene().getWindow();
     }
-    stage.close();
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/calculator-view.fxml"));
+    Scene scene = new Scene(fxmlLoader.load());
+    CalculatorController calculatorController = fxmlLoader.getController();
+    calculatorController.setUser(username, password);
+    stage.setScene(scene);
+    /*stage.close();
     CalculatorStage calculatorStage = new CalculatorStage();
-    calculatorStage.open();
+    calculatorStage.open();*/
   }
 }

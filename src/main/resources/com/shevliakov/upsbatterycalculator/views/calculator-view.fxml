@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTableView?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -99,7 +99,7 @@
                   </Label>
                </children>
             </HBox>
-            <MFXTableView fx:id="BatteriesTableView" footerVisible="false" visible="false" />
+            <MFXListView fx:id="BatteryListView" prefHeight="500.0" prefWidth="536.0" visible="false" />
          </children>
       </VBox>
    </children>
