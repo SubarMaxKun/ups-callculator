@@ -1,6 +1,5 @@
 package com.shevliakov.upsbatterycalculator;
 
-import com.shevliakov.upsbatterycalculator.entity.User;
 import com.shevliakov.upsbatterycalculator.logic.Hash;
 import com.shevliakov.upsbatterycalculator.logic.authorization.SignIn;
 import com.shevliakov.upsbatterycalculator.logic.authorization.SignUp;
@@ -25,7 +24,6 @@ public class MainController {
   public MFXTextField PasswordPasswordField;
   public Label ErrorLabel;
   public MFXButton GuestButton;
-  User user = new User();
   private String username;
   private String password;
 
@@ -42,7 +40,7 @@ public class MainController {
     } else if (actionEvent.getSource() == ReturnButton) {
       fxmlFileName = "main-view.fxml";
     }
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/" + fxmlFileName));
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/" + fxmlFileName));
     Scene scene = new Scene(fxmlLoader.load());
     Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
     stage.setScene(scene);
@@ -97,10 +95,7 @@ public class MainController {
     } else {
       stage = (Stage) AuthorizeButton.getScene().getWindow();
     }
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/calculator-view.fxml"));
-    Scene scene = new Scene(fxmlLoader.load());
-    CalculatorController calculatorController = fxmlLoader.getController();
-    calculatorController.setUser(username, password);
-    stage.setScene(scene);
+    CalculatorStage calculatorStage = new CalculatorStage();
+    calculatorStage.open(stage, username, password);
   }
 }
