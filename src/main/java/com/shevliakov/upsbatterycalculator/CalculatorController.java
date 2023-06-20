@@ -1,12 +1,15 @@
 package com.shevliakov.upsbatterycalculator;
 
 import com.shevliakov.upsbatterycalculator.dao.impl.BatteryDaoImpl;
+import com.shevliakov.upsbatterycalculator.dao.impl.HistoryDaoImpl;
 import com.shevliakov.upsbatterycalculator.dao.impl.UserDaoImpl;
+import com.shevliakov.upsbatterycalculator.entity.History;
 import com.shevliakov.upsbatterycalculator.entity.User;
 import com.shevliakov.upsbatterycalculator.logic.CalculateCapacity;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -23,7 +26,7 @@ public class CalculatorController {
   public Label ResultLabel;
   public MFXListView BatteryListView;
   public Label ErrorLabel;
-  User user = new User();
+  private String username;
   private int result;
 
   public void onCalculateButtonClicked(ActionEvent actionEvent) {
@@ -42,7 +45,9 @@ public class CalculatorController {
     }
   }
 
-  public void onHistoryButtonClicked(ActionEvent actionEvent) {
+  public void onHistoryButtonClicked(ActionEvent actionEvent) throws IOException {
+    HistoryStage historyStage = new HistoryStage();
+    historyStage.open(username);
   }
 
   public void onProfileButtonClicked(ActionEvent actionEvent) {
@@ -50,8 +55,9 @@ public class CalculatorController {
 
   private void loadBatteries(int result) {
     BatteryListView.setVisible(true);
-    BatteryListView.setItems(FXCollections.observableArrayList(new BatteryDaoImpl().getBatteriesByCapacity(result,
-        Integer.parseInt(BatteryVoltageTexField.getText()))));
+    BatteryListView.setItems(
+        FXCollections.observableArrayList(new BatteryDaoImpl().getBatteriesByCapacity(result,
+            Integer.parseInt(BatteryVoltageTexField.getText()))));
   }
 
   private void calculateCapacity() {
@@ -61,11 +67,22 @@ public class CalculatorController {
         Integer.parseInt(BatteryVoltageTexField.getText()),
         Float.parseFloat(InverterEfficiencyTextField.getText()));
     ResultLabel.setText(result + " Ah");
+    try {
+      User user = (User) new UserDaoImpl().getUserByUsername(username);
+      History history = History.builder().capacity(result)
+          .hours(Integer.parseInt(WorkingTimeTextField.getText()))
+          .consumedPower(ConsumedPowerTextField.getText() + "W")
+          .voltage(Integer.parseInt(BatteryVoltageTexField.getText()))
+          .inverterEfficiency(Float.parseFloat(InverterEfficiencyTextField.getText()))
+          .userId(user.getId()).build();
+      new HistoryDaoImpl().addHistory(history);
+    } catch (Exception e) {
+      ErrorLabel.setText("Can't save history");
+    }
   }
 
-  public void setUser(String username, String password) {
-    user.setUsername(username);
-    user.setPassword(password);
+  public void setUsername(String username) {
+    this.username = username;
     if (username.equals("guest")) {
       ProfileButton.setVisible(false);
       HistoryButton.setVisible(false);

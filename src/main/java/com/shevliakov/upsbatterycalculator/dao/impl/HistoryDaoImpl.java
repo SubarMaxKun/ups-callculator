@@ -1,9 +1,11 @@
 package com.shevliakov.upsbatterycalculator.dao.impl;
 
 import com.shevliakov.upsbatterycalculator.dao.HistoryDao;
+import com.shevliakov.upsbatterycalculator.entity.History;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import java.util.List;
 
 public class HistoryDaoImpl implements HistoryDao {
 
@@ -36,9 +38,12 @@ public class HistoryDaoImpl implements HistoryDao {
   }
 
   @Override
-  public Object getHistoryByUserId(int userId) {
+  public List<History> getHistoryByUserId(int userId) {
     init();
-    Object history = entityManager.find(Object.class, userId);
+    List<History> history = entityManager.createQuery(
+            "SELECT h FROM History h WHERE h.userId = :userId")
+        .setParameter("userId", userId)
+        .getResultList();
     entityManager.getTransaction().commit();
     entityManager.close();
     return history;

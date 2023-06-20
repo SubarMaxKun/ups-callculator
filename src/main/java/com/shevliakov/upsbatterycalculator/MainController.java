@@ -35,7 +35,7 @@ public class MainController {
     } else if (actionEvent.getSource() == SignUpButton) {
       fxmlFileName = "signUp-view.fxml";
     } else if (actionEvent.getSource() == GuestButton) {
-      openCalculatorStage("guest", Hash.getHash("guest"));
+      openCalculatorStage("guest");
       return;
     } else if (actionEvent.getSource() == ReturnButton) {
       fxmlFileName = "main-view.fxml";
@@ -62,7 +62,7 @@ public class MainController {
     SignIn signIn = new SignIn();
     try {
       if (signIn.signIn(username, password)) {
-        openCalculatorStage(username, Hash.getHash(password));
+        openCalculatorStage(username);
       } else {
         ErrorLabel.setText("Wrong username or password");
         ErrorLabel.setVisible(true);
@@ -77,7 +77,7 @@ public class MainController {
     SignUp signUp = new SignUp();
     try {
       if (signUp.signUp(username, password)) {
-        openCalculatorStage(username, Hash.getHash(password));
+        openCalculatorStage(username);
       } else {
         ErrorLabel.setText("You have problem with username or password");
         ErrorLabel.setVisible(true);
@@ -88,7 +88,7 @@ public class MainController {
     }
   }
 
-  private void openCalculatorStage(String username, String password) throws IOException {
+  private void openCalculatorStage(String username) throws IOException {
     Stage stage;
     if (AuthorizeButton == null) {
       stage = (Stage) GuestButton.getScene().getWindow();
@@ -96,6 +96,6 @@ public class MainController {
       stage = (Stage) AuthorizeButton.getScene().getWindow();
     }
     CalculatorStage calculatorStage = new CalculatorStage();
-    calculatorStage.open(stage, username, password);
+    calculatorStage.open(stage, username);
   }
 }

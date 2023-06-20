@@ -1,6 +1,5 @@
 package com.shevliakov.upsbatterycalculator;
 
-import com.shevliakov.upsbatterycalculator.logic.Hash;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,7 +8,7 @@ import javafx.stage.Stage;
 
 public class CalculatorStage {
 
-  public void open(Stage stage, String username, String password) throws IOException {
+  public void open(Stage stage, String username) throws IOException {
     Stage newStage = new Stage();
     FXMLLoader loader = new FXMLLoader(getClass().getResource("views/calculator-view.fxml"));
     Scene scene = new Scene(loader.load());
@@ -19,7 +18,7 @@ public class CalculatorStage {
     newStage.setTitle("Calculator");
     newStage.setScene(scene);
     CalculatorController controller = loader.getController();
-    controller.setUser(username, Hash.getHash(password));
+    controller.setUsername(username);
     stage.close();
     newStage.show();
   }
