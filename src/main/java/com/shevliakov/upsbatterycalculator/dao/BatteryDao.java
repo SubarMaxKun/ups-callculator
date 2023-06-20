@@ -13,6 +13,8 @@ public interface BatteryDao {
 
   List<Battery> getAllBatteries();
 
+  List<Battery> getBatteriesByCapacity(int capacity, int voltage);
+
   Object getBatteryById(int id);
 
   Object getBatteryByModel(String model);

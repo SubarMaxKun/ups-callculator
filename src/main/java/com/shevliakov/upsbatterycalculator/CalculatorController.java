@@ -1,5 +1,6 @@
 package com.shevliakov.upsbatterycalculator;
 
+import com.shevliakov.upsbatterycalculator.dao.impl.BatteryDaoImpl;
 import com.shevliakov.upsbatterycalculator.dao.impl.UserDaoImpl;
 import com.shevliakov.upsbatterycalculator.entity.User;
 import com.shevliakov.upsbatterycalculator.logic.CalculateCapacity;
@@ -30,7 +31,7 @@ public class CalculatorController {
     try {
       calculateCapacity();
       try {
-        loadBatteries();
+        loadBatteries(result);
       } catch (Exception e) {
         System.out.println(e.getMessage());
         ErrorLabel.setText("Can't load batteries");
@@ -47,9 +48,10 @@ public class CalculatorController {
   public void onProfileButtonClicked(ActionEvent actionEvent) {
   }
 
-  private void loadBatteries() {
+  private void loadBatteries(int result) {
     BatteryListView.setVisible(true);
-    BatteryListView.setItems(FXCollections.observableArrayList(new UserDaoImpl().getAllUsers()));
+    BatteryListView.setItems(FXCollections.observableArrayList(new BatteryDaoImpl().getBatteriesByCapacity(result,
+        Integer.parseInt(BatteryVoltageTexField.getText()))));
   }
 
   private void calculateCapacity() {

@@ -52,6 +52,17 @@ public class BatteryDaoImpl implements BatteryDao {
   }
 
   @Override
+  public List<Battery> getBatteriesByCapacity(int capacity, int voltage) {
+    init();
+    List<Battery> batteries = entityManager.createQuery(
+            "SELECT b FROM Battery b WHERE b.capacity >= :capacity and b.voltage = :voltage")
+        .setParameter("capacity", capacity).setParameter("voltage", voltage).getResultList();
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return batteries;
+  }
+
+  @Override
   public Object getBatteryById(int id) {
     init();
     Object battery = entityManager.find(Object.class, id);

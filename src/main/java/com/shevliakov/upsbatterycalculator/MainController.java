@@ -70,7 +70,6 @@ public class MainController {
         ErrorLabel.setVisible(true);
       }
     } catch (Exception e) {
-      System.out.println(e.getMessage());
       ErrorLabel.setText("Connection with database failed");
       ErrorLabel.setVisible(true);
     }
@@ -103,8 +102,5 @@ public class MainController {
     CalculatorController calculatorController = fxmlLoader.getController();
     calculatorController.setUser(username, password);
     stage.setScene(scene);
-    /*stage.close();
-    CalculatorStage calculatorStage = new CalculatorStage();
-    calculatorStage.open();*/
   }
 }
