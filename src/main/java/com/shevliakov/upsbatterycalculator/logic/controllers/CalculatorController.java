@@ -1,5 +1,8 @@
-package com.shevliakov.upsbatterycalculator;
+package com.shevliakov.upsbatterycalculator.logic.controllers;
 
+import com.shevliakov.upsbatterycalculator.HistoryStage;
+import com.shevliakov.upsbatterycalculator.Main;
+import com.shevliakov.upsbatterycalculator.ProfileStage;
 import com.shevliakov.upsbatterycalculator.dao.impl.BatteryDaoImpl;
 import com.shevliakov.upsbatterycalculator.dao.impl.HistoryDaoImpl;
 import com.shevliakov.upsbatterycalculator.dao.impl.UserDaoImpl;
@@ -13,6 +16,7 @@ import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class CalculatorController {
 
@@ -23,6 +27,7 @@ public class CalculatorController {
   public MFXButton CalculateButton;
   public MFXButton HistoryButton;
   public MFXButton ProfileButton;
+  public MFXButton LogOutButton;
   public Label ResultLabel;
   public MFXListView BatteryListView;
   public Label ErrorLabel;
@@ -50,7 +55,16 @@ public class CalculatorController {
     historyStage.open(username);
   }
 
-  public void onProfileButtonClicked(ActionEvent actionEvent) {
+  public void onProfileButtonClicked(ActionEvent actionEvent) throws IOException {
+    ProfileStage profileStage = new ProfileStage();
+    profileStage.open(username);
+  }
+
+  public void onLogOutButtonClicked(ActionEvent actionEvent) throws IOException {
+    Stage stage = (Stage) LogOutButton.getScene().getWindow();
+    stage.close();
+    Main main = new Main();
+    main.start(new Stage());
   }
 
   private void loadBatteries(int result) {

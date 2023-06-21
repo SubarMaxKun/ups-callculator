@@ -1,11 +1,10 @@
-package com.shevliakov.upsbatterycalculator;
+package com.shevliakov.upsbatterycalculator.logic.controllers;
 
 import com.shevliakov.upsbatterycalculator.dao.impl.HistoryDaoImpl;
 import com.shevliakov.upsbatterycalculator.dao.impl.UserDaoImpl;
 import com.shevliakov.upsbatterycalculator.entity.User;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class HistoryController {
 

@@ -1,6 +1,6 @@
 package com.shevliakov.upsbatterycalculator;
 
-import com.shevliakov.upsbatterycalculator.logic.Hash;
+import com.shevliakov.upsbatterycalculator.logic.controllers.HistoryController;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -11,4 +11,6 @@ module com.shevliakov.upsbatterycalculator {
   opens com.shevliakov.upsbatterycalculator to javafx.fxml;
   opens com.shevliakov.upsbatterycalculator.entity to org.hibernate.orm.core;
   exports com.shevliakov.upsbatterycalculator;
+  exports com.shevliakov.upsbatterycalculator.logic.controllers;
+  opens com.shevliakov.upsbatterycalculator.logic.controllers to javafx.fxml;
 }

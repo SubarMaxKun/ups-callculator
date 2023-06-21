@@ -14,9 +14,9 @@ public class SignUp {
     this.username = username;
     this.password = password;
 
-    if (checkUsernameAvailability() && checkPasswordAvailability()) {
+    if (checkUsernameAvailability() && new CheckPasswordAvailability().checkPasswordAvailability(password)) {
       UserDaoImpl userDaoImpl = new UserDaoImpl();
-      userDaoImpl.addUser(new User(username, Hash.getHash(password)));
+      userDaoImpl.addUser(new User(username, Hash.getHash(this.password)));
       return true;
     }
     return false;
@@ -32,10 +32,5 @@ public class SignUp {
       }
     }
     return true;
-  }
-
-  private boolean checkPasswordAvailability() {
-    return password.length() >= 8 && password.length() <= 24 && !password.contains(" ")
-        && !password.contains("\t") && !password.contains("\n") && !password.contains("\r");
   }
 }

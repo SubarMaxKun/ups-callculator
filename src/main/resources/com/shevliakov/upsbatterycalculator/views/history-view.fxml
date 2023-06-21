@@ -3,8 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shevliakov.upsbatterycalculator.HistoryController">
+<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shevliakov.upsbatterycalculator.logic.controllers.HistoryController">
    <children>
       <MFXListView fx:id="HistoryListView" layoutX="14.0" layoutY="14.0" prefHeight="572.0" prefWidth="464.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
    </children>
