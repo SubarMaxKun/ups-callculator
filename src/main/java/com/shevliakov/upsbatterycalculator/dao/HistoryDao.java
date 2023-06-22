@@ -1,3 +1,4 @@
+/* (C)2023 */
 package com.shevliakov.upsbatterycalculator.dao;
 
 import com.shevliakov.upsbatterycalculator.entity.History;
@@ -5,10 +6,9 @@ import java.util.List;
 
 public interface HistoryDao {
 
-  void addHistory(Object history);
+    void addHistory(Object history);
 
-  void deleteHistoryByUserId(int userId);
+    void deleteHistoryByUserId(int userId);
 
-  List<History> getHistoryByUserId(int userId);
-
+    List<History> getHistoryByUserId(int userId);
 }

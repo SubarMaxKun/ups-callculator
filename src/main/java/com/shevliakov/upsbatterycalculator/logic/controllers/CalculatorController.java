@@ -1,3 +1,4 @@
+/* (C)2023 */
 package com.shevliakov.upsbatterycalculator.logic.controllers;
 
 import com.shevliakov.upsbatterycalculator.HistoryStage;
@@ -20,86 +21,99 @@ import javafx.stage.Stage;
 
 public class CalculatorController {
 
-  public MFXTextField ConsumedPowerTextField;
-  public MFXTextField WorkingTimeTextField;
-  public MFXTextField BatteryVoltageTexField;
-  public MFXTextField InverterEfficiencyTextField;
-  public MFXButton CalculateButton;
-  public MFXButton HistoryButton;
-  public MFXButton ProfileButton;
-  public MFXButton LogOutButton;
-  public Label ResultLabel;
-  public MFXListView BatteryListView;
-  public Label ErrorLabel;
-  private String username;
-  private int result;
+    public MFXTextField ConsumedPowerTextField;
+    public MFXTextField WorkingTimeTextField;
+    public MFXTextField BatteryVoltageTexField;
+    public MFXTextField InverterEfficiencyTextField;
+    public MFXButton CalculateButton;
+    public MFXButton HistoryButton;
+    public MFXButton ProfileButton;
+    public MFXButton LogOutButton;
+    public Label ResultLabel;
+    public MFXListView BatteryListView;
+    public Label ErrorLabel;
+    private String username;
+    private int result;
 
-  public void onCalculateButtonClicked(ActionEvent actionEvent) {
-    ErrorLabel.setVisible(false);
-    try {
-      calculateCapacity();
-      try {
-        loadBatteries(result);
-      } catch (Exception e) {
-        System.out.println(e.getMessage());
-        ErrorLabel.setText("Can't load batteries");
-        ErrorLabel.setVisible(true);
-      }
-    } catch (NumberFormatException e) {
-      ErrorLabel.setVisible(true);
+    public void onCalculateButtonClicked(ActionEvent actionEvent) {
+        ErrorLabel.setVisible(false);
+        try {
+            calculateCapacity();
+            try {
+                loadBatteries(result);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                ErrorLabel.setText("Can't load batteries");
+                ErrorLabel.setVisible(true);
+            }
+        } catch (NumberFormatException e) {
+            ErrorLabel.setText("Entered data is not valid");
+            ErrorLabel.setVisible(true);
+        }
     }
-  }
 
-  public void onHistoryButtonClicked(ActionEvent actionEvent) throws IOException {
-    HistoryStage historyStage = new HistoryStage();
-    historyStage.open(username);
-  }
-
-  public void onProfileButtonClicked(ActionEvent actionEvent) throws IOException {
-    ProfileStage profileStage = new ProfileStage();
-    profileStage.open(username);
-  }
-
-  public void onLogOutButtonClicked(ActionEvent actionEvent) throws IOException {
-    Stage stage = (Stage) LogOutButton.getScene().getWindow();
-    stage.close();
-    Main main = new Main();
-    main.start(new Stage());
-  }
-
-  private void loadBatteries(int result) {
-    BatteryListView.setVisible(true);
-    BatteryListView.setItems(
-        FXCollections.observableArrayList(new BatteryDaoImpl().getBatteriesByCapacity(result,
-            Integer.parseInt(BatteryVoltageTexField.getText()))));
-  }
-
-  private void calculateCapacity() {
-    CalculateCapacity calculateCapacity = new CalculateCapacity();
-    result = calculateCapacity.calculate(Integer.parseInt(ConsumedPowerTextField.getText()),
-        Integer.parseInt(WorkingTimeTextField.getText()),
-        Integer.parseInt(BatteryVoltageTexField.getText()),
-        Float.parseFloat(InverterEfficiencyTextField.getText()));
-    ResultLabel.setText(result + " Ah");
-    try {
-      User user = (User) new UserDaoImpl().getUserByUsername(username);
-      History history = History.builder().capacity(result)
-          .hours(Integer.parseInt(WorkingTimeTextField.getText()))
-          .consumedPower(ConsumedPowerTextField.getText() + "W")
-          .voltage(Integer.parseInt(BatteryVoltageTexField.getText()))
-          .inverterEfficiency(Float.parseFloat(InverterEfficiencyTextField.getText()))
-          .userId(user.getId()).build();
-      new HistoryDaoImpl().addHistory(history);
-    } catch (Exception e) {
-      ErrorLabel.setText("Can't save history");
+    public void onHistoryButtonClicked(ActionEvent actionEvent) throws IOException {
+        HistoryStage historyStage = new HistoryStage();
+        historyStage.open(username);
     }
-  }
 
-  public void setUsername(String username) {
-    this.username = username;
-    if (username.equals("guest")) {
-      ProfileButton.setVisible(false);
-      HistoryButton.setVisible(false);
+    public void onProfileButtonClicked(ActionEvent actionEvent) throws IOException {
+        ProfileStage profileStage = new ProfileStage();
+        profileStage.open(username);
     }
-  }
+
+    public void onLogOutButtonClicked(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) LogOutButton.getScene().getWindow();
+        stage.close();
+        Main main = new Main();
+        main.start(new Stage());
+    }
+
+    private void loadBatteries(int result) {
+        BatteryListView.setVisible(true);
+        BatteryListView.setItems(
+                FXCollections.observableArrayList(
+                        new BatteryDaoImpl()
+                                .getBatteriesByCapacity(
+                                        result,
+                                        Integer.parseInt(BatteryVoltageTexField.getText()))));
+    }
+
+    private void calculateCapacity() {
+        CalculateCapacity calculateCapacity = new CalculateCapacity();
+        if (InverterEfficiencyTextField.getText().isEmpty()) {
+            InverterEfficiencyTextField.setText("0.8");
+        }
+        result =
+                calculateCapacity.calculate(
+                        Integer.parseInt(ConsumedPowerTextField.getText()),
+                        Integer.parseInt(WorkingTimeTextField.getText()),
+                        Integer.parseInt(BatteryVoltageTexField.getText()),
+                        Float.parseFloat(InverterEfficiencyTextField.getText()));
+        ResultLabel.setText(result + " Ah");
+        try {
+            User user = (User) new UserDaoImpl().getUserByUsername(username);
+            History history =
+                    History.builder()
+                            .capacity(result)
+                            .hours(Integer.parseInt(WorkingTimeTextField.getText()))
+                            .consumedPower(ConsumedPowerTextField.getText() + "W")
+                            .voltage(Integer.parseInt(BatteryVoltageTexField.getText()))
+                            .inverterEfficiency(
+                                    Float.parseFloat(InverterEfficiencyTextField.getText()))
+                            .userId(user.getId())
+                            .build();
+            new HistoryDaoImpl().addHistory(history);
+        } catch (Exception e) {
+            ErrorLabel.setText("Can't save history");
+        }
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+        if (username.equals("guest")) {
+            ProfileButton.setVisible(false);
+            HistoryButton.setVisible(false);
+        }
+    }
 }

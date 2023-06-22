@@ -1,3 +1,4 @@
+/* (C)2023 */
 package com.shevliakov.upsbatterycalculator.entity;
 
 import jakarta.persistence.Column;
@@ -26,23 +27,26 @@ import lombok.ToString;
 @Getter
 public class History {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-  @NonNull
-  @Column(name = "user_id")
-  private int userId;
-  @NonNull
-  private int capacity;
-  @NonNull
-  private int voltage;
-  @NonNull
-  @Column(name = "consumed_power")
-  private String consumedPower;
-  @NonNull
-  @Column(name = "usage_time")
-  private int hours;
-  @NonNull
-  @Column(name = "inverter_efficiency")
-  private float inverterEfficiency;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @NonNull
+    @Column(name = "user_id")
+    private int userId;
+
+    @NonNull private int capacity;
+    @NonNull private int voltage;
+
+    @NonNull
+    @Column(name = "consumed_power")
+    private String consumedPower;
+
+    @NonNull
+    @Column(name = "usage_time")
+    private int hours;
+
+    @NonNull
+    @Column(name = "inverter_efficiency")
+    private float inverterEfficiency;
 }

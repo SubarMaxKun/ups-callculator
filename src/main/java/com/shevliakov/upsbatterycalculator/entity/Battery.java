@@ -1,3 +1,4 @@
+/* (C)2023 */
 package com.shevliakov.upsbatterycalculator.entity;
 
 import jakarta.persistence.Entity;
@@ -25,17 +26,13 @@ import lombok.ToString;
 @Getter
 public class Battery {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-  @NonNull
-  private String brand;
-  @NonNull
-  private String model;
-  @NonNull
-  private String type;
-  @NonNull
-  private int voltage;
-  @NonNull
-  private int capacity;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @NonNull private String brand;
+    @NonNull private String model;
+    @NonNull private String type;
+    @NonNull private int voltage;
+    @NonNull private int capacity;
 }
