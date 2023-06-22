@@ -17,7 +17,7 @@ public class ProfileStage {
                 new Image(
                         "file:src/main/resources/com/shevliakov/upsbatterycalculator/Images/icon.png");
         stage.getIcons().add(icon);
-        stage.setTitle("History");
+        stage.setTitle("Profile");
         stage.setScene(scene);
         stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
         ProfileController controller = loader.getController();

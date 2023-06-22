@@ -106,6 +106,7 @@ public class CalculatorController {
             new HistoryDaoImpl().addHistory(history);
         } catch (Exception e) {
             ErrorLabel.setText("Can't save history");
+            ErrorLabel.setVisible(true);
         }
     }
 
