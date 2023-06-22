@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/** MainController class is used to control main and authorization stages */
 public class MainController {
 
     public MFXButton SignInButton;
@@ -27,6 +28,12 @@ public class MainController {
     private String username;
     private String password;
 
+    /**
+     * Method to open stage or scene according to the button which was clicked
+     *
+     * @param actionEvent event
+     * @throws IOException exception
+     */
     @FXML
     protected void onNavigationButtonClicked(ActionEvent actionEvent) throws IOException {
         String fxmlFileName = "";
@@ -47,6 +54,11 @@ public class MainController {
         stage.show();
     }
 
+    /**
+     * Method to proceed authorization according to the button which was clicked
+     *
+     * @param actionEvent event
+     */
     @FXML
     protected void proceedAuthorization(ActionEvent actionEvent) {
         username = UsernameTextField.getText();
@@ -58,6 +70,7 @@ public class MainController {
         }
     }
 
+    /** Method to proceed sign in */
     private void proceedSignIn() {
         SignIn signIn = new SignIn();
         try {
@@ -73,6 +86,7 @@ public class MainController {
         }
     }
 
+    /** Method to proceed sign up */
     private void proceedSignUp() {
         SignUp signUp = new SignUp();
         try {
@@ -88,6 +102,12 @@ public class MainController {
         }
     }
 
+    /**
+     * Method to open CalculatorStage
+     *
+     * @param username user's username
+     * @throws IOException exception
+     */
     private void openCalculatorStage(String username) throws IOException {
         Stage stage;
         if (AuthorizeButton == null) {

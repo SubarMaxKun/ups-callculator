@@ -8,10 +8,12 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.List;
 
+/** UserDaoImpl class implements UserDao interface */
 public class UserDaoImpl implements UserDao {
 
     private EntityManager entityManager;
 
+    /** Initializes entity manager */
     private void init() {
         EntityManagerFactory sessionFactory =
                 Persistence.createEntityManagerFactory("com.shevliakov.upsbatterycalculator");
@@ -19,6 +21,11 @@ public class UserDaoImpl implements UserDao {
         entityManager.getTransaction().begin();
     }
 
+    /**
+     * Adds user to database
+     *
+     * @param user user to add
+     */
     @Override
     public void addUser(Object user) {
         init();
@@ -27,6 +34,12 @@ public class UserDaoImpl implements UserDao {
         entityManager.close();
     }
 
+    /**
+     * Updates user in database by username
+     *
+     * @param username user's username
+     * @param password user's password
+     */
     @Override
     public void updateUserPasswordByUsername(String username, String password) {
         init();
@@ -40,6 +53,11 @@ public class UserDaoImpl implements UserDao {
         entityManager.close();
     }
 
+    /**
+     * Deletes user from database
+     *
+     * @param user user to delete
+     */
     @Override
     public void deleteUser(Object user) {
         init();
@@ -48,6 +66,12 @@ public class UserDaoImpl implements UserDao {
         entityManager.close();
     }
 
+    /**
+     * Gets user from database by id
+     *
+     * @param id user's id
+     * @return user
+     */
     @Override
     public Object getUserById(int id) {
         init();
@@ -57,6 +81,12 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    /**
+     * Gets user from database by username
+     *
+     * @param username user's username
+     * @return user
+     */
     @Override
     public Object getUserByUsername(String username) {
         init();
@@ -70,6 +100,11 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    /**
+     * Gets all users from database
+     *
+     * @return list of users
+     */
     @Override
     public List<User> getAllUsers() {
         init();

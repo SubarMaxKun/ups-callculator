@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/** History entity */
 @Entity
 @Table(name = "history")
 @NoArgsConstructor(force = true)

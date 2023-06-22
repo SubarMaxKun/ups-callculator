@@ -4,8 +4,15 @@ package com.shevliakov.upsbatterycalculator.logic;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
+/** Hash class is used to hash passwords */
 public class Hash {
 
+    /**
+     * Method to hash string
+     *
+     * @param base string to hash
+     * @return hashed string
+     */
     public static String getHash(final String base) {
         try {
             final MessageDigest digest = MessageDigest.getInstance("SHA-256");

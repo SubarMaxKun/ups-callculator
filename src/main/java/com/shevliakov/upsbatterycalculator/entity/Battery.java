@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/** Battery entity */
 @Entity
 @Table(name = "batteries")
 @NoArgsConstructor(force = true)

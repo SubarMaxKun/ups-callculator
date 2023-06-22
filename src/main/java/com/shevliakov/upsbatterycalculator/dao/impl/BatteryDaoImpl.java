@@ -8,10 +8,14 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.List;
 
+/** BatteryDaoImpl class implements BatteryDao interface */
 public class BatteryDaoImpl implements BatteryDao {
 
     private EntityManager entityManager;
 
+    /**
+     * Initializes entity manager
+     */
     private void init() {
         EntityManagerFactory sessionFactory =
                 Persistence.createEntityManagerFactory("com.shevliakov.upsbatterycalculator");
@@ -19,6 +23,11 @@ public class BatteryDaoImpl implements BatteryDao {
         entityManager.getTransaction().begin();
     }
 
+    /**
+     * Adds battery to database
+     *
+     * @param battery battery to add
+     */
     @Override
     public void addBattery(Object battery) {
         init();
@@ -27,6 +36,11 @@ public class BatteryDaoImpl implements BatteryDao {
         entityManager.close();
     }
 
+    /**
+     * Updates battery in database
+     *
+     * @param battery battery to update
+     */
     @Override
     public void updateBattery(Object battery) {
         init();
@@ -35,6 +49,11 @@ public class BatteryDaoImpl implements BatteryDao {
         entityManager.close();
     }
 
+    /**
+     * Deletes battery from database
+     *
+     * @param battery battery to delete
+     */
     @Override
     public void deleteBattery(Object battery) {
         init();
@@ -43,6 +62,11 @@ public class BatteryDaoImpl implements BatteryDao {
         entityManager.close();
     }
 
+    /**
+     * Gets all batteries from database
+     *
+     * @return List<Battery> returned list of batteries
+     */
     @Override
     public List<Battery> getAllBatteries() {
         init();
@@ -53,6 +77,12 @@ public class BatteryDaoImpl implements BatteryDao {
         return batteries;
     }
 
+    /**
+     * Gets batteries from database by capacity
+     *
+     * @param capacity battery's capacity
+     * @return List<Battery>
+     */
     @Override
     public List<Battery> getBatteriesByCapacity(int capacity, int voltage) {
         init();
@@ -69,6 +99,12 @@ public class BatteryDaoImpl implements BatteryDao {
         return batteries;
     }
 
+    /**
+     * Gets batteries from database by id
+     *
+     * @param id battery's id
+     * @return List<Battery>
+     */
     @Override
     public Object getBatteryById(int id) {
         init();
@@ -78,6 +114,12 @@ public class BatteryDaoImpl implements BatteryDao {
         return battery;
     }
 
+    /**
+     * Gets batteries from database by model
+     *
+     * @param model battery's model
+     * @return List<Battery>
+     */
     @Override
     public Object getBatteryByModel(String model) {
         init();

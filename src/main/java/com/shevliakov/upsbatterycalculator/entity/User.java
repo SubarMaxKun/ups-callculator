@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/** User entity */
 @Entity
 @Table(name = "users")
 @NoArgsConstructor(force = true)

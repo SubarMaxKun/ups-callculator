@@ -8,8 +8,16 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/** CalculatorStage class is used to open CalculatorStage */
 public class CalculatorStage {
 
+    /**
+     * Method to open CalculatorStage
+     *
+     * @param stage stage
+     * @param username user's username
+     * @throws IOException exception
+     */
     public void open(Stage stage, String username) throws IOException {
         Stage newStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("views/calculator-view.fxml"));

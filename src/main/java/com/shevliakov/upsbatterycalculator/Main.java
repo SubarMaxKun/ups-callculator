@@ -8,8 +8,15 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/** JavaFX App */
 public class Main extends Application {
 
+    /**
+     * Start application
+     *
+     * @param stage stage
+     * @throws IOException exception
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Views/main-view.fxml"));
@@ -24,6 +31,11 @@ public class Main extends Application {
         stage.show();
     }
 
+    /**
+     * Main method
+     *
+     * @param args arguments
+     */
     public static void main(String[] args) {
         launch();
     }

@@ -10,6 +10,7 @@ import java.util.Objects;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 
+/** Controller for ProfileStage */
 public class ProfileController {
 
     public Label UsernameLabel;
@@ -19,6 +20,11 @@ public class ProfileController {
     public MFXPasswordField RepeatPasswordPasswordField;
     private String username;
 
+    /**
+     * Method to change user's password
+     *
+     * @param actionEvent event
+     */
     public void onChangePasswordButtonClicked(ActionEvent actionEvent) {
         try {
             User user = new User();
@@ -45,6 +51,11 @@ public class ProfileController {
         }
     }
 
+    /**
+     * Method to set username
+     *
+     * @param username username
+     */
     public void setUser(String username) {
         this.username = username;
         UsernameLabel.setText(username);

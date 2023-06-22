@@ -8,10 +8,12 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.List;
 
+/** HistoryDaoImpl class implements HistoryDao interface */
 public class HistoryDaoImpl implements HistoryDao {
 
     private EntityManager entityManager;
 
+    /** Initializes entity manager */
     private void init() {
         EntityManagerFactory sessionFactory =
                 Persistence.createEntityManagerFactory("com.shevliakov.upsbatterycalculator");
@@ -19,6 +21,11 @@ public class HistoryDaoImpl implements HistoryDao {
         entityManager.getTransaction().begin();
     }
 
+    /**
+     * Adds history to database
+     *
+     * @param history history to add
+     */
     @Override
     public void addHistory(Object history) {
         init();
@@ -27,6 +34,11 @@ public class HistoryDaoImpl implements HistoryDao {
         entityManager.close();
     }
 
+    /**
+     * Deletes history from database
+     *
+     * @param userId user id, whose history must be deleted
+     */
     @Override
     public void deleteHistoryByUserId(int userId) {
         init();
@@ -38,6 +50,12 @@ public class HistoryDaoImpl implements HistoryDao {
         entityManager.close();
     }
 
+    /**
+     * Gets history from database
+     *
+     * @param userId user id, whose history must be returned
+     * @return list of history
+     */
     @Override
     public List<History> getHistoryByUserId(int userId) {
         init();

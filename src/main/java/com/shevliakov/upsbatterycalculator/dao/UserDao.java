@@ -4,6 +4,7 @@ package com.shevliakov.upsbatterycalculator.dao;
 import com.shevliakov.upsbatterycalculator.entity.User;
 import java.util.List;
 
+/** UserDao interface provides methods to work with users in database */
 public interface UserDao {
 
     void addUser(Object user);

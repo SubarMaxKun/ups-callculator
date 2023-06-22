@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/** Controller for CalculatorStage */
 public class CalculatorController {
 
     public MFXTextField ConsumedPowerTextField;
@@ -35,6 +36,11 @@ public class CalculatorController {
     private String username;
     private int result;
 
+    /**
+     * Method to calculate capacity and load batteries
+     *
+     * @param actionEvent event
+     */
     public void onCalculateButtonClicked(ActionEvent actionEvent) {
         ErrorLabel.setVisible(false);
         try {
@@ -52,16 +58,34 @@ public class CalculatorController {
         }
     }
 
+    /**
+     * Method to open history stage
+     *
+     * @param actionEvent event
+     * @throws IOException exception
+     */
     public void onHistoryButtonClicked(ActionEvent actionEvent) throws IOException {
         HistoryStage historyStage = new HistoryStage();
         historyStage.open(username);
     }
 
+    /**
+     * Method to open profile stage
+     *
+     * @param actionEvent event
+     * @throws IOException exception
+     */
     public void onProfileButtonClicked(ActionEvent actionEvent) throws IOException {
         ProfileStage profileStage = new ProfileStage();
         profileStage.open(username);
     }
 
+    /**
+     * Method to log out
+     *
+     * @param actionEvent event
+     * @throws IOException exception
+     */
     public void onLogOutButtonClicked(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) LogOutButton.getScene().getWindow();
         stage.close();
@@ -69,6 +93,11 @@ public class CalculatorController {
         main.start(new Stage());
     }
 
+    /**
+     * Method to load battery suggestions based on calculated capacity
+     *
+     * @param result calculated battery capacity
+     */
     private void loadBatteries(int result) {
         BatteryListView.setVisible(true);
         BatteryListView.setItems(
@@ -79,6 +108,7 @@ public class CalculatorController {
                                         Integer.parseInt(BatteryVoltageTexField.getText()))));
     }
 
+    /** Method to calculate battery capacity */
     private void calculateCapacity() {
         CalculateCapacity calculateCapacity = new CalculateCapacity();
         if (InverterEfficiencyTextField.getText().isEmpty()) {
@@ -110,6 +140,11 @@ public class CalculatorController {
         }
     }
 
+    /**
+     * Method to set user's username
+     *
+     * @param username user's username
+     */
     public void setUsername(String username) {
         this.username = username;
         if (username.equals("guest")) {
