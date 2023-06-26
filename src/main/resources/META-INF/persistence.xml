@@ -6,13 +6,21 @@
 
   <persistence-unit name="com.shevliakov.upsbatterycalculator">
     <properties>
-      <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+      <!--<property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
       <property name="jakarta.persistence.jdbc.url"    value="jdbc:mysql://localhost:3306/ups_calculator_main" />
       <property name="jakarta.persistence.jdbc.user"   value="root" />
-      <property name="jakarta.persistence.jdbc.password" value="1234" />
+      <property name="jakarta.persistence.jdbc.password" value="1234" />-->
       <property name="hibernate.dialect"    value="org.hibernate.dialect.MySQLDialect" />
 <!--      <property name="hibernate.show_sql"   value="true" />-->
       <property name="hibernate.format_sql" value="true" />
+      <property name="hibernate.connection.provider_class" value="com.zaxxer.hikari.hibernate.HikariConnectionProvider"/>
+      <property name="hibernate.hikari.minimumIdle" value="1"/>
+      <property name="hibernate.hikari.maximumPoolSize" value="5"/>
+      <property name="hibernate.hikari.idleTimeout" value="5000"/>
+      <property name="hibernate.hikari.dataSourceClassName" value="com.mysql.cj.jdbc.MysqlDataSource"/>
+      <property name="hibernate.hikari.dataSource.url" value="jdbc:mysql://localhost:3306/ups_calculator_main"/>
+      <property name="hibernate.hikari.dataSource.user" value="root"/>
+      <property name="hibernate.hikari.dataSource.password" value="1234"/>
     </properties>
   </persistence-unit>
 </persistence>

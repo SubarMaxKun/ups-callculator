@@ -57,6 +57,12 @@
       <artifactId>hibernate-core</artifactId>
       <version>6.1.7.Final</version>
     </dependency>
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-hikaricp</artifactId>
+      <version>6.1.7.Final</version>
+    </dependency>
+
 
     <dependency>
       <groupId>org.projectlombok</groupId>

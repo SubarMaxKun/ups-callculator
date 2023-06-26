@@ -13,9 +13,7 @@ public class BatteryDaoImpl implements BatteryDao {
 
     private EntityManager entityManager;
 
-    /**
-     * Initializes entity manager
-     */
+    /** Initializes entity manager */
     private void init() {
         EntityManagerFactory sessionFactory =
                 Persistence.createEntityManagerFactory("com.shevliakov.upsbatterycalculator");

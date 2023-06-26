@@ -122,22 +122,28 @@ public class CalculatorController {
                         Float.parseFloat(InverterEfficiencyTextField.getText()));
         ResultLabel.setText(result + " Ah");
         try {
-            User user = (User) new UserDaoImpl().getUserByUsername(username);
-            History history =
-                    History.builder()
-                            .capacity(result)
-                            .hours(Integer.parseInt(WorkingTimeTextField.getText()))
-                            .consumedPower(ConsumedPowerTextField.getText() + "W")
-                            .voltage(Integer.parseInt(BatteryVoltageTexField.getText()))
-                            .inverterEfficiency(
-                                    Float.parseFloat(InverterEfficiencyTextField.getText()))
-                            .userId(user.getId())
-                            .build();
-            new HistoryDaoImpl().addHistory(history);
+            if (!username.equals("guest")) {
+                saveHistory();
+            }
         } catch (Exception e) {
             ErrorLabel.setText("Can't save history");
             ErrorLabel.setVisible(true);
         }
+    }
+
+    /** Method to save calculation history */
+    private void saveHistory() {
+        User user = (User) new UserDaoImpl().getUserByUsername(username);
+        History history =
+                History.builder()
+                        .capacity(result)
+                        .hours(Integer.parseInt(WorkingTimeTextField.getText()))
+                        .consumedPower(ConsumedPowerTextField.getText() + "W")
+                        .voltage(Integer.parseInt(BatteryVoltageTexField.getText()))
+                        .inverterEfficiency(Float.parseFloat(InverterEfficiencyTextField.getText()))
+                        .userId(user.getId())
+                        .build();
+        new HistoryDaoImpl().addHistory(history);
     }
 
     /**
