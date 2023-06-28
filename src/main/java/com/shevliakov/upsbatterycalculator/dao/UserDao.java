@@ -13,6 +13,8 @@ public interface UserDao {
 
     void deleteUser(Object user);
 
+    void deleteUserByUsername(String username);
+
     Object getUserById(int id);
 
     Object getUserByUsername(String username);

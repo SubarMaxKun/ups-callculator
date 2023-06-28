@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -19,7 +20,7 @@
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin></Label>
-            <MFXPasswordField fx:id="OldPasswordPasswordField" floatMode="ABOVE" floatingText="Old password" prefWidth="200.0" textLimit="24">
+            <MFXPasswordField fx:id="OldPasswordPasswordField" floatMode="ABOVE" floatingText="Current password" prefWidth="200.0" textLimit="24">
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
@@ -34,11 +35,20 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
             </MFXPasswordField>
-            <MFXButton fx:id="ChangePasswordButton" buttonType="RAISED" depthLevel="LEVEL1" onAction="#onChangePasswordButtonClicked" text="Change password">
-               <VBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </VBox.margin>
-            </MFXButton>
+            <HBox alignment="CENTER">
+               <children>
+                  <MFXButton fx:id="ChangePasswordButton" buttonType="RAISED" depthLevel="LEVEL1" onAction="#onChangePasswordButtonClicked" text="Change password">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton fx:id="DeleteProfileButton" buttonType="RAISED" depthLevel="LEVEL1" onAction="#onDeleteProfileButtonClicked" text="Delete profile">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+            </HBox>
             <Label fx:id="ErrorLabel" text="Error" textAlignment="CENTER" textFill="RED" visible="false">
                <font>
                   <Font name="Roboto" size="14.0" />

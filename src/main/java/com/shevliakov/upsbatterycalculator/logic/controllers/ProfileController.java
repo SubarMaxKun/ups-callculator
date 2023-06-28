@@ -5,6 +5,7 @@ import com.shevliakov.upsbatterycalculator.dao.impl.UserDaoImpl;
 import com.shevliakov.upsbatterycalculator.entity.User;
 import com.shevliakov.upsbatterycalculator.logic.Hash;
 import com.shevliakov.upsbatterycalculator.logic.authorization.CheckPasswordAvailability;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import java.util.Objects;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ public class ProfileController {
     public MFXPasswordField OldPasswordPasswordField;
     public MFXPasswordField NewPasswordPasswordField;
     public MFXPasswordField RepeatPasswordPasswordField;
+    public MFXButton DeleteProfileButton;
     private String username;
 
     /**
@@ -27,7 +29,7 @@ public class ProfileController {
      */
     public void onChangePasswordButtonClicked(ActionEvent actionEvent) {
         try {
-            User user = new User();
+            User user;
             UserDaoImpl userDaoImpl = new UserDaoImpl();
             user = (User) userDaoImpl.getUserByUsername(username);
 
@@ -47,6 +49,31 @@ public class ProfileController {
             }
         } catch (Exception e) {
             ErrorLabel.setText("Can't change password");
+            ErrorLabel.setVisible(true);
+        }
+    }
+
+    /**
+     * Method to delete user's profile
+     *
+     * @param actionEvent event
+     */
+    public void onDeleteProfileButtonClicked(ActionEvent actionEvent) {
+        User user;
+        UserDaoImpl userDaoImpl = new UserDaoImpl();
+        user = (User) userDaoImpl.getUserByUsername(username);
+
+        try {
+            if (Hash.getHash(OldPasswordPasswordField.getText()).equals(user.getPassword())) {
+                userDaoImpl.deleteUserByUsername(user.getUsername());
+                ErrorLabel.setText("Account deleted, please close all windows or log out");
+                ErrorLabel.setVisible(true);
+            } else {
+                ErrorLabel.setText("Wrong password");
+                ErrorLabel.setVisible(true);
+            }
+        } catch (Exception e) {
+            ErrorLabel.setText("Can't delete profile");
             ErrorLabel.setVisible(true);
         }
     }
