@@ -46,6 +46,8 @@ public class CalculatorController {
         try {
             calculateCapacity();
             try {
+                if (result <= 0) return;
+
                 loadBatteries(result);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -120,7 +122,11 @@ public class CalculatorController {
                         Integer.parseInt(WorkingTimeTextField.getText()),
                         Integer.parseInt(BatteryVoltageTexField.getText()),
                         Float.parseFloat(InverterEfficiencyTextField.getText()));
-        ResultLabel.setText(result + " Ah");
+        if (result <= 0) {
+            ErrorLabel.setText("Entered data is not valid");
+            ErrorLabel.setVisible(true);
+        } else ResultLabel.setText(result + " Ah");
+
         try {
             if (!username.equals("guest")) {
                 saveHistory();
